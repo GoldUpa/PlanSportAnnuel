@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan d'entraînement – Semaine type</title>
+  <style>
+    /* Reset & typography */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      color: #333;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #005a9e;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #0078d4;
+      color: #fff;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #eef6fc;
+    }
+
+    .renfo {
+      background-color: #e6f4ea;
+    }
+
+    .cardio {
+      background-color: #dbeefd;
+    }
+
+    .repos {
+      background-color: #fde7e7;
+    }
+
+    /* morning / evening labels inside cells */
+    .session {
+      margin: 4px 0;
+      text-align: left;
+    }
+    .session strong {
+      display: inline-block;
+      width: 60px;
+    }
+
+    caption {
+      caption-side: top;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* video button */
+    .video-btn {
+      margin-top: 0.5rem;
+      padding: 6px 12px;
+      background:#0078d4;
+      color:#fff;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      font-size:0.9rem;
+    }
+    .video-btn:hover { background:#005a9e; }
+
+    /* modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 700px;
+      position: relative;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 768px) {
+      table { display: block; overflow-x: auto; }
+      th, td { padding: 8px 4px; }
+      .modal-content { width: 90%; margin: 10% auto; }
+      .video-btn { width: 100%; box-sizing: border-box; }
+    }
+
+    @media (max-width: 480px) {
+      .session strong { width: 50px; }
+      .video-btn { font-size: 0.8rem; padding: 8px; }
+    }
+    .close {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover, .close:focus {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Plan d'entraînement – Semaine type</h1>
+  <table>
+    <caption>Semaine 1</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>        <!-- bouton vidéo lundi -->
+        <button id="btnLundi" class="video-btn">Voir renforcement</button>      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :  Exo Chiro</strong></div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong>tapis 10–15 min  + Exo Chiro</div>
+        <!-- bouton vidéo mercredi/vendredi -->
+        <button id="btnMercredi" class="video-btn">Voir challenge</button>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Piscine 30–45 min</div>
+        <div class="session"><strong>Soir :  Exo Chiro</strong></div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
+        <div class="session"><strong>Soir :  Exo Chiro</strong></div>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :  Exo Chiro</strong></div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- modals pour vidéos -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <span class="close" data-target="modal1">&times;</span>
+      <video controls width="100%" id="video1">
+        <source src="file:///C:/Users/phila/AppData/Local/CapCut/Videos/Back_renforcement.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <span class="close" data-target="modal2">&times;</span>
+      <video controls width="100%" id="video2">
+        <source src="file:///C:/Users/phila/AppData/Local/CapCut/Videos/squatchallenge.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+    </div>
+  </div>
+
+  <script>
+    // gestion des modals
+    function openModal(id) {
+      var m = document.getElementById(id);
+      if (m) m.style.display = 'block';
+    }
+    function closeModal(id) {
+      var m = document.getElementById(id);
+      if (m) {
+        m.style.display = 'none';
+        // stop video
+        var v = m.querySelector('video');
+        if (v) { v.pause(); v.currentTime = 0; }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('btnLundi').addEventListener('click', function(){ openModal('modal1'); });
+      document.getElementById('btnMercredi').addEventListener('click', function(){ openModal('modal2'); });
+      var closes = document.querySelectorAll('.close');
+      closes.forEach(function(el){
+        el.addEventListener('click', function(){ closeModal(el.getAttribute('data-target')); });
+      });
+      window.addEventListener('click', function(event){
+        if (event.target.classList.contains('modal')) {
+          closeModal(event.target.id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
