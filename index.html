@@ -19,12 +19,14 @@
       color: #005a9e;
     }
 
-    /* Week Navigation */
+    /* Month / Week Navigation */
+    .month-nav,
     .week-nav {
       text-align: center;
       margin-bottom: 20px;
     }
 
+    .month-nav button,
     .week-nav button {
       padding: 10px 20px;
       margin: 0 5px;
@@ -36,13 +38,25 @@
       transition: background-color 0.2s;
     }
 
+    .month-nav button:hover,
     .week-nav button:hover {
       background-color: #d2d0ce;
     }
 
+    .month-nav button.active,
     .week-nav button.active {
       background-color: #0078d4;
       color: white;
+    }
+
+    .week-nav {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .week-nav.active {
+      display: block;
     }
 
     /* Week Tables */
@@ -178,13 +192,23 @@
   </style>
 </head>
 <body>
-  <h1>Plan d'entraînement – Semaine type</h1>
+  <h1>Plan d'entraînement – par mois et semaine</h1>
 
-  <div class="week-nav">
-    <button class="nav-btn active" onclick="showWeek(1)">Semaine 1</button>
-    <button class="nav-btn" onclick="showWeek(2)">Semaine 2</button>
-    <button class="nav-btn" onclick="showWeek(3)">Semaine 3</button>
-    <button class="nav-btn" onclick="showWeek(4)">Semaine 4</button>
+  <div class="month-nav">
+    <button class="month-btn active" onclick="showMonth(1)">Mois 1</button>
+    <button class="month-btn" onclick="showMonth(2)">Mois 2</button>
+  </div>
+
+  <div id="month-1-weeks" class="week-nav active">
+    <button class="week-btn active" onclick="showWeek(1)">Semaine 1</button>
+    <button class="week-btn" onclick="showWeek(2)">Semaine 2</button>
+    <button class="week-btn" onclick="showWeek(3)">Semaine 3</button>
+    <button class="week-btn" onclick="showWeek(4)">Semaine 4</button>
+  </div>
+
+  <div id="month-2-weeks" class="week-nav">
+    <button class="week-btn" onclick="showWeek(5)">Semaine 5</button>
+    <button class="week-btn" onclick="showWeek(6)">Semaine 6</button>
   </div>
 
   <!-- Semaine 1 -->
@@ -379,6 +403,99 @@
     </tr>
   </table>
 
+  <!-- Semaine 5 -->
+  <table id="week-5" class="week-table">
+    <caption>Semaine 5</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/CUIRR2wBe6U">Voir renforcement</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/dnd1-g-wuXg">Voir challenge</button>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Piscine 30–45 min</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Semaine 6 -->
+  <table id="week-6" class="week-table">
+    <caption>Semaine 6</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/sc84nzXLXgg">Voir renforcement</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
+        <span style="color: red; font-weight: bold;">Vidéo Mercredi Semaine 6 à venir</span><br>
+        <!--<button class="video-btn" data-src="https://www.youtube.com/embed/dnd1-g-wuXg">WORK IN PROGRESS !!!</button>-->
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Piscine 30–45 min</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+    </tr>
+  </table>
+
   <!-- modal unique pour les vidéos -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
@@ -420,6 +537,35 @@
       }
     });
 
+    const monthWeekMap = {
+      1: { navId: 'month-1-weeks', defaultWeek: 1 },
+      2: { navId: 'month-2-weeks', defaultWeek: 5 }
+    };
+
+    window.showMonth = function(monthNumber) {
+      document.querySelectorAll('.week-nav').forEach(nav => {
+        nav.classList.remove('active');
+      });
+
+      document.querySelectorAll('.month-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const monthButton = document.querySelectorAll('.month-btn')[monthNumber - 1];
+      if (monthButton) {
+        monthButton.classList.add('active');
+      }
+
+      const selectedMonth = monthWeekMap[monthNumber];
+      if (selectedMonth) {
+        const monthNav = document.getElementById(selectedMonth.navId);
+        if (monthNav) {
+          monthNav.classList.add('active');
+        }
+        showWeek(selectedMonth.defaultWeek);
+      }
+    }
+
     // Fonction globale pour afficher la semaine sélectionnée
     window.showWeek = function(weekNumber) {
       // Masquer toutes les tables
@@ -428,7 +574,7 @@
       });
 
       // Désactiver tous les boutons
-      document.querySelectorAll('.nav-btn').forEach(btn => {
+      document.querySelectorAll('.week-btn').forEach(btn => {
         btn.classList.remove('active');
       });
 
@@ -439,11 +585,15 @@
       }
 
       // Activer le bouton correspondant
-      const buttons = document.querySelectorAll('.nav-btn');
+      const buttons = document.querySelectorAll('.week-btn');
       if (buttons[weekNumber - 1]) {
         buttons[weekNumber - 1].classList.add('active');
       }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      showMonth(1);
+    });
   </script>
 </body>
 </html>
