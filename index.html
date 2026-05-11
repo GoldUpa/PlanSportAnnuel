@@ -182,6 +182,8 @@
     .planner-shell > .month-nav,
     .planner-shell > .week-nav {
       margin-left: auto;
+      margin-right: auto;
+    }
 
     .setup-block {
       display: grid;
@@ -255,8 +257,6 @@
       text-decoration: none;
       font-size: 0.88rem;
       letter-spacing: 0.01em;
-    }
-      margin-right: auto;
     }
 
     .planner-shell > .month-nav {
@@ -401,7 +401,8 @@
     #week-7,
     #week-8,
     #week-9,
-    #week-10 {
+    #week-10,
+    #week-11 {
       border-color: rgba(16, 17, 20, 0.16);
       box-shadow: 0 20px 44px rgba(8, 9, 11, 0.16);
     }
@@ -411,7 +412,8 @@
     #week-7 td,
     #week-8 td,
     #week-9 td,
-    #week-10 td {
+    #week-10 td,
+    #week-11 td {
       background: linear-gradient(180deg, #fff, rgba(18, 20, 24, 0.03));
     }
 
@@ -529,6 +531,21 @@
       .hero {
         margin-bottom: 14px;
       }
+
+      .month-nav,
+      .week-nav {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: thin;
+      }
+
+      .month-nav button,
+      .week-nav button {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
     }
 
     @media (max-width: 768px) {
@@ -547,8 +564,13 @@
       }
 
       .week-table {
+        display: none;
+      }
+
+      .week-table.active {
         display: block;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         white-space: nowrap;
       }
 
@@ -633,6 +655,7 @@
       <div id="month-3-weeks" class="week-nav">
         <button class="week-btn" onclick="showWeek(9)">Semaine 9</button>
         <button class="week-btn" onclick="showWeek(10)">Semaine 10</button>
+        <button class="week-btn" onclick="showWeek(11)">Semaine 11</button>
       </div>
 
   <!-- Semaine 1 -->
@@ -1080,6 +1103,52 @@
     </tr>
   </table>
 
+  <!-- Semaine 11 (copie semaine 1) -->
+  <table id="week-11" class="week-table">
+    <caption>Semaine 11</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/X9crV4wDflk">Voir renforcement</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10-15 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/nChFpZqyRHg">Voir challenge</button>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
+        <div class="session"><strong>Soir :</strong> Piscine 30-45 min</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15-20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+    </tr>
+  </table>
+
     </div>
 
   <!-- modal unique pour les vidéos -->
@@ -1171,6 +1240,22 @@
       `;
     }
 
+    function buildPhilippeWeekFromWeek9(weekLabel) {
+      const weekNineMarkup = weekOriginalMarkup.get(9);
+      if (!weekNineMarkup) {
+        return buildPhilippeSetupMarkup(weekLabel);
+      }
+
+      const template = document.createElement('template');
+      template.innerHTML = weekNineMarkup.trim();
+      const caption = template.content.querySelector('caption');
+      if (caption) {
+        caption.textContent = weekLabel;
+      }
+
+      return template.innerHTML;
+    }
+
     function renderUniverseMarkup(universeName) {
       weekTables.forEach(table => {
         const weekNumber = getWeekNumberFromTable(table);
@@ -1186,11 +1271,7 @@
           return;
         }
 
-        if (weekNumber === 10) {
-          table.innerHTML = buildPhilippeWeek10Markup();
-        } else {
-          table.innerHTML = buildPhilippeSetupMarkup(getWeekCaption(table));
-        }
+        table.innerHTML = buildPhilippeSetupMarkup(getWeekCaption(table));
       });
     }
 
@@ -1244,7 +1325,7 @@
     const monthWeekMap = {
       1: { navId: 'month-1-weeks', defaultWeek: 1 },
       2: { navId: 'month-2-weeks', defaultWeek: 5 },
-      3: { navId: 'month-3-weeks', defaultWeek: 10 }
+      3: { navId: 'month-3-weeks', defaultWeek: 11 }
     };
 
     window.showUniverse = function(universeName) {
