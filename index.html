@@ -384,7 +384,8 @@
     #week-1,
     #week-2,
     #week-3,
-    #week-4 {
+    #week-4,
+    #week-12 {
       border-color: rgba(171, 122, 140, 0.22);
       box-shadow: 0 20px 44px rgba(122, 83, 97, 0.12);
     }
@@ -392,7 +393,8 @@
     #week-1 td,
     #week-2 td,
     #week-3 td,
-    #week-4 td {
+    #week-4 td,
+    #week-12 td {
       background: linear-gradient(180deg, #fff, rgba(246, 233, 238, 0.62));
     }
 
@@ -656,6 +658,7 @@
         <button class="week-btn" onclick="showWeek(9)">Semaine 9</button>
         <button class="week-btn" onclick="showWeek(10)">Semaine 10</button>
         <button class="week-btn" onclick="showWeek(11)">Semaine 11</button>
+        <button class="week-btn" onclick="showWeek(12)">Semaine 12</button>
       </div>
 
   <!-- Semaine 1 -->
@@ -1140,6 +1143,52 @@
       </td>
       <td class="repos">
         <div class="session"><strong>Matin :</strong> Repos ou tapis 15-20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Semaine 12 (copie semaine 1) -->
+  <table id="week-12" class="week-table">
+    <caption>Semaine 12</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Renforcement fessier (10 min)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/sc84nzXLXgg">Voir renforcement</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Full Body (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/qX-RA4XrY9M">Voir challenge</button>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
+        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
         <div class="session"><strong>Soir :</strong></div>
       </td>
       <td class="cardio">
