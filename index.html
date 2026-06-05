@@ -662,6 +662,7 @@
         <button class="week-btn" onclick="showWeek(11)">Semaine 11</button>
         <button class="week-btn" onclick="showWeek(12)">Semaine 12</button>
         <button class="week-btn" onclick="showWeek(13)">Semaine 13</button>
+        <button class="week-btn" onclick="showWeek(14)">Semaine 14</button>
       </div>
 
   <!-- Semaine 1 -->
@@ -1223,7 +1224,7 @@
         <div class="session"><strong>Soir :</strong> Exo Chiro</div>
       </td>
       <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Glute Trainig </div>
+        <div class="session"><strong>Matin :</strong> Glute Training </div>
         <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
         <button class="video-btn" data-src="https://www.youtube.com/embed/2flE8uYLsq4">Voir challenge</button>
       </td>
@@ -1237,6 +1238,53 @@
       </td>
       <td class="repos">
         <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
+        <div class="session"><strong>Soir :</strong></div>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Semaine 14 (copie semaine 11 pour Mariana; Philippe verra une copie de la 13 via le script) -->
+  <table id="week-14" class="week-table">
+    <caption>Semaine 14</caption>
+    <tr>
+      <th>Lundi</th>
+      <th>Mardi</th>
+      <th>Mercredi</th>
+      <th>Jeudi</th>
+      <th>Vendredi</th>
+      <th>Samedi</th>
+      <th>Dimanche</th>
+    </tr>
+    <tr>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Vshred</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
+        <button class="video-btn" >Voir Site Vshred</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
+        <div class="session"><strong>Soir :</strong> Tapis 10-15 min + Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/2flE8uYLsq4">Voir challenge</button>
+      </td>
+      <td class="cardio">
+        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
+        <div class="session"><strong>Soir :</strong> Piscine 30-45 min</div>
+      </td>
+      <td class="renfo">
+        <div class="session"><strong>Matin :</strong> Back training</div>
+        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
+        <button class="video-btn" data-src="https://www.youtube.com/embed/9vb6C-N0fsA">Voir challenge</button>
+      </td>
+      <td class="repos">
+        <div class="session"><strong>Matin :</strong> Repos ou tapis 15-20 min léger</div>
         <div class="session"><strong>Soir :</strong></div>
       </td>
       <td class="cardio">
@@ -1368,7 +1416,15 @@
           return;
         }
 
-        table.innerHTML = buildPhilippeSetupMarkup(getWeekCaption(table));
+        // Pour Philippe : si semaine 14, réutiliser la semaine 13 si disponible
+        if (universeName === 'philippe') {
+          if (weekNumber === 14) {
+            const copyFrom13 = weekOriginalMarkup.get(13);
+            table.innerHTML = copyFrom13 || buildPhilippeSetupMarkup(getWeekCaption(table));
+            return;
+          }
+          table.innerHTML = buildPhilippeSetupMarkup(getWeekCaption(table));
+        }
       });
     }
 
