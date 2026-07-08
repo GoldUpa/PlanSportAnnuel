@@ -1,25 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Plan d'entraînement – Semaine type</title>
+  <title>Plan d'entraînement - Univers Mariana / Philippe</title>
   <style>
     :root {
       color-scheme: light;
-      --page-bg: #0f1013;
-      --page-bg-2: #16181d;
-      --page-glow-1: rgba(255, 255, 255, 0.08);
-      --page-glow-2: rgba(255, 255, 255, 0.05);
-      --surface: rgba(255, 255, 255, 0.72);
-      --surface-strong: #ffffff;
+      --bg-1: #0f1013;
+      --bg-2: #181b22;
       --text: #171411;
-      --muted: rgba(23, 20, 17, 0.66);
+      --muted: rgba(23, 20, 17, 0.68);
       --line: rgba(23, 20, 17, 0.10);
-      --shadow: 0 24px 80px rgba(17, 15, 13, 0.10);
+      --card: rgba(255, 255, 255, 0.72);
+      --card-strong: rgba(255, 255, 255, 0.92);
+      --shadow: 0 24px 80px rgba(17, 15, 13, 0.12);
       --shadow-soft: 0 14px 30px rgba(17, 15, 13, 0.08);
       --mariana: #ab7a8c;
-      --mariana-soft: #f6e9ee;
       --mariana-deep: #5a3847;
       --philippe: #101114;
       --philippe-soft: #191b20;
@@ -28,55 +25,40 @@
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 12px;
-      --space-1: 0.5rem;
-      --space-2: 0.85rem;
-      --space-3: 1.2rem;
-      --space-4: 1.75rem;
-      --space-5: 2.5rem;
-      --space-6: 3.5rem;
+      --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
       --font-sans: "Segoe UI Variable", "Segoe UI", "Helvetica Neue", sans-serif;
       --font-serif: Georgia, "Times New Roman", serif;
-      --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--text);
       font-family: var(--font-sans);
-      transition: background 320ms var(--ease), color 320ms var(--ease);
+      color: var(--text);
       background:
-        radial-gradient(circle at top left, var(--page-glow-1), transparent 34%),
-        radial-gradient(circle at 85% 12%, var(--page-glow-2), transparent 24%),
-        linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-2) 100%);
-    }
-
-    body[data-universe="philippe"] {
-      --page-bg: #08090c;
-      --page-bg-2: #181a20;
-      --page-glow-1: rgba(255, 255, 255, 0.07);
-      --page-glow-2: rgba(255, 255, 255, 0.05);
-      --text: #141416;
-      --muted: rgba(20, 20, 22, 0.66);
-      --line: rgba(20, 20, 22, 0.12);
+        radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 34%),
+        radial-gradient(circle at 85% 12%, rgba(255,255,255,0.05), transparent 24%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
     }
 
     body[data-universe="mariana"] {
-      --page-bg: #f5ecef;
-      --page-bg-2: #e4d4dc;
-      --page-glow-1: rgba(171, 122, 140, 0.24);
-      --page-glow-2: rgba(116, 76, 91, 0.12);
+      --bg-1: #f5ecef;
+      --bg-2: #e4d4dc;
       --text: #1a1417;
       --muted: rgba(26, 20, 23, 0.66);
       --line: rgba(26, 20, 23, 0.10);
+    }
+
+    body[data-universe="philippe"] {
+      --bg-1: #08090c;
+      --bg-2: #181a20;
+      --text: #141416;
+      --muted: rgba(20, 20, 22, 0.66);
+      --line: rgba(20, 20, 22, 0.12);
     }
 
     body::before,
@@ -96,7 +78,7 @@
       height: 22rem;
       left: -7rem;
       top: 8rem;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.48), rgba(171, 122, 140, 0.16));
+      background: radial-gradient(circle, rgba(255,255,255,0.46), rgba(171, 122, 140, 0.16));
     }
 
     body::after {
@@ -104,7 +86,7 @@
       height: 18rem;
       right: -6rem;
       bottom: 6rem;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(16, 17, 20, 0.16));
+      background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(16, 17, 20, 0.16));
     }
 
     main {
@@ -116,21 +98,56 @@
     }
 
     .hero {
+      display: grid;
+      gap: 18px;
+      align-items: end;
       margin-bottom: 18px;
     }
 
     .hero-copy,
-    .identity-card,
-    .planner-shell,
-    .universe-marker,
-    .week-nav,
-    .week-table {
+    .section-card,
+    .universe-switcher {
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
 
     .hero-copy {
-      padding: 4px 0 12px;
+      max-width: 860px;
+      padding: 10px 8px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    body[data-universe="mariana"] .eyebrow { color: rgba(26, 20, 23, 0.58); }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+    }
+
+    .hero-copy p {
+      margin: 14px 0 0;
+      max-width: 70ch;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.98rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
     }
 
     .universe-switcher {
@@ -143,21 +160,24 @@
       background: rgba(255, 255, 255, 0.58);
       box-shadow: var(--shadow-soft);
       width: fit-content;
-      margin: 0 auto;
+    }
+
+    .universe-switcher button,
+    .week-nav button {
+      appearance: none;
+      border: 1px solid rgba(23, 20, 17, 0.10);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 180ms var(--ease), background-color 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .universe-switcher button {
-      appearance: none;
-      border: 0;
-      border-radius: 999px;
       padding: 12px 24px;
-      cursor: pointer;
       background: transparent;
       color: var(--muted);
       font-family: var(--font-serif);
       font-size: 1.05rem;
       letter-spacing: -0.02em;
-      transition: transform 180ms var(--ease), background-color 180ms var(--ease), color 180ms var(--ease), box-shadow 180ms var(--ease);
     }
 
     .universe-switcher button.active {
@@ -166,139 +186,74 @@
       box-shadow: 0 14px 24px rgba(16, 17, 20, 0.20);
     }
 
-    .universe-switcher button:hover {
-      transform: translateY(-1px);
-    }
+    .universe-switcher button:hover,
+    .week-nav button:hover { transform: translateY(-1px); }
 
-    .planner-shell {
-      margin-top: 22px;
-      padding: 22px;
+    .planner-grid { display: grid; gap: 18px; }
+
+    .section-card {
+      padding: 20px;
+      border-radius: var(--radius-xl);
       border: 1px solid var(--line);
-      border-radius: calc(var(--radius-xl) + 4px);
-      background: rgba(255, 255, 255, 0.52);
+      background: var(--card);
       box-shadow: var(--shadow);
     }
 
-    .planner-shell > .month-nav,
-    .planner-shell > .week-nav {
-      margin-left: auto;
-      margin-right: auto;
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
-    .setup-block {
-      display: grid;
-      place-items: center;
-      min-height: 34rem;
-      padding: 28px;
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background:
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 42%),
-        linear-gradient(180deg, rgba(16, 17, 20, 0.96), rgba(24, 26, 32, 0.98));
-      color: #fff;
-      text-align: center;
-      box-shadow: 0 24px 60px rgba(8, 9, 11, 0.28);
-    }
-
-    .setup-block h2 {
+    .section-title h2 {
       margin: 0;
       font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      letter-spacing: -0.04em;
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      letter-spacing: -0.03em;
     }
 
-    .setup-block p {
-      margin: 14px 0 0;
-      max-width: 48ch;
-      color: rgba(255, 255, 255, 0.78);
-      line-height: 1.75;
-      font-size: 0.98rem;
-    }
+    .section-title p,
+    .mini-note { margin: 0; color: var(--muted); line-height: 1.55; }
 
-    .setup-meta {
-      margin-top: 18px;
-      display: inline-flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .setup-pill {
+    .setup-pill,
+    .badge,
+    .type-pill {
       display: inline-flex;
       align-items: center;
-      padding: 8px 12px;
+      gap: 8px;
+      padding: 9px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid transparent;
       font-size: 0.82rem;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
+      font-weight: 700;
       text-transform: uppercase;
     }
 
-    .philippe-skeleton td {
-      vertical-align: top;
-      min-width: 120px;
+    .setup-pill {
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--text);
+      border-color: var(--line);
     }
 
-    .skeleton-line {
-      min-height: 1.2rem;
-      margin: 7px 0;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .skeleton-video {
-      margin-top: 12px;
-      display: inline-flex;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px dashed rgba(255, 255, 255, 0.22);
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.88rem;
-      letter-spacing: 0.01em;
-    }
-
-    .planner-shell > .month-nav {
-      margin-bottom: 18px;
-    }
-
-    .month-nav,
     .week-nav {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 10px;
-      text-align: center;
+      margin: 0 0 16px;
     }
 
-    .month-nav button,
     .week-nav button {
-      appearance: none;
-      border: 1px solid rgba(23, 20, 17, 0.10);
       padding: 12px 18px;
-      border-radius: 999px;
       background: rgba(255, 255, 255, 0.78);
       color: var(--text);
-      cursor: pointer;
-      font-size: 0.95rem;
-      letter-spacing: 0.01em;
-      transition:
-        transform 180ms var(--ease),
-        background-color 180ms var(--ease),
-        color 180ms var(--ease),
-        box-shadow 180ms var(--ease),
-        border-color 180ms var(--ease);
       box-shadow: 0 10px 24px rgba(16, 17, 20, 0.04);
+      min-width: 122px;
     }
 
-    .month-nav button:hover,
-    .week-nav button:hover,
-    .video-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .month-nav button.active,
     .week-nav button.active {
       background: linear-gradient(135deg, var(--text), rgba(23, 20, 17, 0.84));
       color: #fff;
@@ -306,156 +261,109 @@
       box-shadow: 0 16px 26px rgba(16, 17, 20, 0.18);
     }
 
-    .week-nav {
-      display: none;
-      margin-bottom: 20px;
-    }
+    .week-panel { display: grid; gap: 16px; }
 
-    .week-nav.active {
+    .week-header {
       display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .week-table {
-      display: none;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto 18px;
-      border-collapse: separate;
-      border-spacing: 0;
-      overflow: hidden;
-      border-radius: 22px;
-      box-shadow: 0 16px 40px rgba(16, 17, 20, 0.10);
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(23, 20, 17, 0.10);
-    }
-
-    .week-table.active {
-      display: table;
-    }
-
-    .week-table caption {
-      caption-side: top;
-      margin-bottom: 14px;
-      padding: 0 4px;
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      color: var(--text);
-      letter-spacing: -0.02em;
-    }
-
-    .week-table tr:first-child th:first-child {
-      border-top-left-radius: 18px;
-    }
-
-    .week-table tr:first-child th:last-child {
-      border-top-right-radius: 18px;
-    }
-
-    .week-table th,
-    .week-table td {
-      padding: 14px 12px;
-      text-align: center;
-      vertical-align: top;
-      border-right: 1px solid rgba(23, 20, 17, 0.08);
-      border-bottom: 1px solid rgba(23, 20, 17, 0.08);
-    }
-
-    .week-table th:last-child,
-    .week-table td:last-child {
-      border-right: none;
-    }
-
-    .week-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .week-table th {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      font-size: 0.78rem;
-      font-weight: 700;
+    .week-kicker {
+      margin: 0 0 8px;
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      background: linear-gradient(180deg, rgba(20, 19, 18, 0.98), rgba(20, 19, 18, 0.90));
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .week-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      letter-spacing: -0.04em;
+    }
+
+    .week-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .badge.active {
+      background: rgba(16, 17, 20, 0.94);
       color: #fff;
     }
 
-    #week-1,
-    #week-2,
-    #week-3,
-    #week-4,
-    #week-12,
-    #week-13 {
-      border-color: rgba(171, 122, 140, 0.22);
-      box-shadow: 0 20px 44px rgba(122, 83, 97, 0.12);
+    .badge.vacation {
+      background: rgba(171, 122, 140, 0.14);
+      color: var(--mariana-deep);
+      border-color: rgba(171, 122, 140, 0.20);
     }
 
-    #week-1 td,
-    #week-2 td,
-    #week-3 td,
-    #week-4 td,
-    #week-12 td,
-    #week-13 td {
-      background: linear-gradient(180deg, #fff, rgba(246, 233, 238, 0.62));
+    .badge.site {
+      background: rgba(16, 17, 20, 0.08);
+      color: var(--philippe);
+      border-color: rgba(16, 17, 20, 0.14);
     }
 
-    #week-5,
-    #week-6,
-    #week-7,
-    #week-8,
-    #week-9,
-    #week-10,
-    #week-11 {
-      border-color: rgba(16, 17, 20, 0.16);
-      box-shadow: 0 20px 44px rgba(8, 9, 11, 0.16);
+    .badge.challenge {
+      background: rgba(63, 92, 141, 0.12);
+      color: #243a63;
+      border-color: rgba(63, 92, 141, 0.16);
     }
 
-    #week-5 td,
-    #week-6 td,
-    #week-7 td,
-    #week-8 td,
-    #week-9 td,
-    #week-10 td,
-    #week-11 td {
-      background: linear-gradient(180deg, #fff, rgba(18, 20, 24, 0.03));
-    }
-
-    .week-table tbody tr td:hover {
-      background-image: linear-gradient(180deg, rgba(171, 122, 140, 0.10), rgba(255, 255, 255, 0.96));
-    }
-
-    .renfo {
-      border-top: 4px solid rgba(171, 122, 140, 0.52);
-    }
-
-    .cardio {
-      border-top: 4px solid rgba(63, 92, 141, 0.42);
-    }
-
-    .repos {
-      border-top: 4px solid rgba(109, 115, 124, 0.36);
-    }
-
-    .session {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      margin: 7px 0;
-      text-align: left;
-      color: var(--text);
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-
-    .session strong {
-      flex: 0 0 56px;
+    .badge.reference {
+      background: rgba(255, 255, 255, 0.76);
       color: var(--muted);
-      font-weight: 600;
+      border-color: var(--line);
+    }
+
+    .week-note {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+    }
+
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .day-card {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--card-strong);
+      min-height: 170px;
+      box-shadow: 0 12px 24px rgba(16, 17, 20, 0.04);
+    }
+
+    .day-card h3 {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .day-line {
+      display: block;
+      margin-top: 8px;
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 0.92rem;
     }
 
     .video-btn {
-      margin-top: 10px;
+      margin-top: 12px;
       padding: 10px 14px;
       width: 100%;
       border: 1px solid rgba(23, 20, 17, 0.10);
@@ -465,24 +373,62 @@
       cursor: pointer;
       font-size: 0.9rem;
       letter-spacing: 0.01em;
-      transition:
-        transform 180ms var(--ease),
-        box-shadow 180ms var(--ease),
-        opacity 180ms var(--ease);
+      transition: transform 180ms var(--ease), box-shadow 180ms var(--ease), opacity 180ms var(--ease);
       box-shadow: 0 14px 24px rgba(16, 17, 20, 0.18);
     }
 
     .video-btn:hover {
+      transform: translateY(-1px);
       box-shadow: 0 18px 30px rgba(16, 17, 20, 0.22);
     }
 
     .video-btn:focus-visible,
-    .month-nav button:focus-visible,
+    .universe-switcher button:focus-visible,
     .week-nav button:focus-visible,
     .close:focus-visible {
       outline: 3px solid rgba(171, 122, 140, 0.38);
       outline-offset: 3px;
     }
+
+    .reference-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(16, 17, 20, 0.08);
+    }
+
+    .reference-table th,
+    .reference-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(23, 20, 17, 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .reference-table th {
+      background: linear-gradient(180deg, rgba(20, 19, 18, 0.98), rgba(20, 19, 18, 0.90));
+      color: #fff;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .reference-table tr:last-child td { border-bottom: none; }
+    .reference-row td { background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 233, 238, 0.45)); }
+    .site-row td { background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(18, 20, 24, 0.04)); }
+    .challenge-row td { background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(63, 92, 141, 0.05)); }
+
+    .type-pill.vacation { background: rgba(171, 122, 140, 0.14); color: var(--mariana-deep); }
+    .type-pill.active,
+    .type-pill.site { background: rgba(16, 17, 20, 0.08); color: var(--philippe); }
+    .type-pill.challenge { background: rgba(63, 92, 141, 0.12); color: #243a63; }
+    .type-pill.reference { background: rgba(255, 255, 255, 0.92); color: var(--muted); border-color: var(--line); }
+
+    .detail-stack { display: grid; gap: 8px; }
 
     .modal {
       display: none;
@@ -531,1024 +477,321 @@
       color: #111;
     }
 
-    @media (max-width: 1024px) {
-      .hero {
-        margin-bottom: 14px;
-      }
-
-      .month-nav,
-      .week-nav {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        scrollbar-width: thin;
-      }
-
-      .month-nav button,
-      .week-nav button {
-        flex: 0 0 auto;
-        white-space: nowrap;
-      }
+    @media (max-width: 1100px) {
+      .day-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 768px) {
-      main {
-        width: min(100% - 18px, 1240px);
-        padding-top: 14px;
-      }
-
-      .hero-copy,
-      .planner-shell {
-        border-radius: 22px;
-      }
-
-      .planner-shell {
-        padding: 14px;
-      }
-
-      .week-table {
-        display: none;
-      }
-
-      .week-table.active {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        white-space: nowrap;
-      }
-
-      .week-table th,
-      .week-table td {
-        min-width: 142px;
-        padding: 12px 10px;
-        white-space: normal;
-      }
-
-      .session {
-        font-size: 0.9rem;
-      }
-
-      .session strong {
-        flex-basis: 50px;
-      }
-
-      .modal-content {
-        width: calc(100% - 16px);
-        margin: 8vh auto;
-      }
-
-      .video-btn {
-        font-size: 0.86rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .universe-switcher {
-        width: 100%;
-      }
-
+    @media (max-width: 640px) {
+      main { width: min(100% - 18px, 1240px); padding-top: 14px; }
+      .section-card { padding: 16px; border-radius: 22px; }
+      .week-summary { justify-content: flex-start; }
+      .day-grid { grid-template-columns: 1fr; }
+      .reference-table,
+      .reference-table thead,
+      .reference-table tbody,
+      .reference-table tr,
+      .reference-table th,
+      .reference-table td { display: block; width: 100%; }
+      .reference-table thead { display: none; }
+      .reference-table tr { border-bottom: 1px solid rgba(23, 20, 17, 0.10); }
+      .reference-table td { border-bottom: none; padding: 10px 12px; }
+      .universe-switcher { width: 100%; }
       .universe-switcher button,
-      .month-nav button,
-      .week-nav button {
-        width: 100%;
-      }
-
+      .week-nav button { width: 100%; }
       .universe-switcher,
-      .month-nav,
-      .week-nav {
-        flex-direction: column;
-      }
-
-      .video-btn {
-        padding: 11px 12px;
-      }
+      .week-nav { flex-direction: column; }
     }
   </style>
 </head>
-<body>
+<body data-universe="mariana">
   <main>
     <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Calendrier hebdomadaire structuré</p>
+        <h1>Univers Mariana / Univers Philippe</h1>
+        <p>La semaine active est toujours affichée en premier. Les semaines 14 à 19 servent de base commune, avec une lecture parallèle des deux univers et un mini-calendrier de référence.</p>
+        <div class="hero-meta">
+          <span id="current-universe-label" class="setup-pill">Mariana</span>
+          <span id="current-week-label" class="setup-pill">Semaine 19</span>
+        </div>
+      </div>
       <div class="universe-switcher" role="tablist" aria-label="Choix de l'univers">
-        <button id="switch-mariana" type="button" class="active" data-universe="mariana" onclick="showUniverse('mariana')">Mariana</button>
-        <button id="switch-philippe" type="button" data-universe="philippe" onclick="showUniverse('philippe')">Philippe</button>
+        <button type="button" class="active" data-universe="mariana" aria-pressed="true">Mariana</button>
+        <button type="button" data-universe="philippe" aria-pressed="false">Philippe</button>
       </div>
     </header>
 
-    <div class="planner-shell">
-      <div class="month-nav">
-        <button class="month-btn active" onclick="showMonth(1)">Mois 1</button>
-        <button class="month-btn" onclick="showMonth(2)">Mois 2</button>
-        <button class="month-btn" onclick="showMonth(3)">Mois 3</button>
-      </div>
+    <div class="planner-grid">
+      <section class="section-card">
+        <div class="section-title">
+          <div>
+            <h2>Semaine active</h2>
+            <p>Le dernier créneau actif de l'univers sélectionné est affiché en premier.</p>
+          </div>
+        </div>
+        <div id="week-nav" class="week-nav" aria-label="Semaines disponibles"></div>
+        <div id="active-week-panel" class="week-panel"></div>
+      </section>
 
-      <div id="month-1-weeks" class="week-nav active">
-        <button class="week-btn active" onclick="showWeek(1)">Semaine 1</button>
-        <button class="week-btn" onclick="showWeek(2)">Semaine 2</button>
-        <button class="week-btn" onclick="showWeek(3)">Semaine 3</button>
-        <button class="week-btn" onclick="showWeek(4)">Semaine 4</button>
-      </div>
-
-      <div id="month-2-weeks" class="week-nav">
-        <button class="week-btn" onclick="showWeek(5)">Semaine 5</button>
-        <button class="week-btn" onclick="showWeek(6)">Semaine 6</button>
-        <button class="week-btn" onclick="showWeek(7)">Semaine 7</button>
-        <button class="week-btn" onclick="showWeek(8)">Semaine 8</button>
-      </div>
-
-      <div id="month-3-weeks" class="week-nav">
-        <button class="week-btn" onclick="showWeek(9)">Semaine 9</button>
-        <button class="week-btn" onclick="showWeek(10)">Semaine 10</button>
-        <button class="week-btn" onclick="showWeek(11)">Semaine 11</button>
-        <button class="week-btn" onclick="showWeek(12)">Semaine 12</button>
-        <button class="week-btn" onclick="showWeek(13)">Semaine 13</button>
-        <button class="week-btn" onclick="showWeek(14)">Semaine 14</button>
-      </div>
-
-  <!-- Semaine 1 -->
-  <table id="week-1" class="week-table active">
-    <caption>Semaine 1</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <!-- Vidéo Lundi Semaine 1 - Changer l'ID après embed/ pour modifier la vidéo -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/CUIRR2wBe6U">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <!-- Vidéo Mercredi Semaine 1 - Changer l'ID après embed/ pour modifier la vidéo -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/dnd1-g-wuXg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 2 -->
-  <table id="week-2" class="week-table">
-    <caption>Semaine 2</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <!-- Vidéo Lundi Semaine 2 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/CUIRR2wBe6U">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <!-- Vidéo Mercredi Semaine 2 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/dnd1-g-wuXg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 3 -->
-  <table id="week-3" class="week-table">
-    <caption>Semaine 3</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <!-- Vidéo Lundi Semaine 3 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/X9crV4wDflk">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <!-- Vidéo Mercredi Semaine 3 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/nChFpZqyRHg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 4 -->
-  <table id="week-4" class="week-table">
-    <caption>Semaine 4</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <!-- Vidéo Lundi Semaine 4 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/X9crV4wDflk">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <!-- Vidéo Mercredi Semaine 4 - Changer ID Youtube ci-dessous -->
-        <button class="video-btn" data-src="https://www.youtube.com/embed/nChFpZqyRHg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 5 -->
-  <table id="week-5" class="week-table">
-    <caption>Semaine 5</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/CUIRR2wBe6U">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/dnd1-g-wuXg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 6 -->
-  <table id="week-6" class="week-table">
-    <caption>Semaine 6</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/sc84nzXLXgg">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Full Body (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/qX-RA4XrY9M">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 7 (Vacances) -->
-  <table id="week-7" class="week-table">
-    <caption>Semaine 7 (Vacances)</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-      <td class="repos"><div class="session"><strong>Matin :</strong> Vacances</div><div class="session"><strong>Soir :</strong> Exo Chiro</div></td>
-    </tr>
-  </table>
-
-  <!-- Semaine 8 (copie semaine 6) -->
-  <table id="week-8" class="week-table">
-    <caption>Semaine 8</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/sc84nzXLXgg">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Full Body (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/qX-RA4XrY9M">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 9 (mois 3) -->
-  <table id="week-9" class="week-table">
-    <caption>Semaine 9</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement générale (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/g6DY1gLJqyA">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Abdo (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/rGdVXp0LsCk">Voir abdo</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 10 (copie semaine 9) -->
-  <table id="week-10" class="week-table">
-    <caption>Semaine 10</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement générale (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/g6DY1gLJqyA">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Abdo (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/rGdVXp0LsCk">Voir abdo</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 11 (copie semaine 1) -->
-  <table id="week-11" class="week-table">
-    <caption>Semaine 11</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement haut du corps (5 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/CUIRR2wBe6U">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10-15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/nChFpZqyRHg">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30-45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15-20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 12 (copie semaine 1) -->
-  <table id="week-12" class="week-table">
-    <caption>Semaine 12</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Renforcement fessier (10 min)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/sc84nzXLXgg">Voir renforcement</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Full Body (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/qX-RA4XrY9M">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 13 -->
-  <table id="week-13" class="week-table">
-    <caption>Semaine 13</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Glute Training </div>
-        <div class="session"><strong>Soir :</strong> Tapis 10–15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/2flE8uYLsq4">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30–45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> (aucune session spécifique)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15–20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Semaine 14 (copie semaine 11 pour Mariana; Philippe verra une copie de la 13 via le script) -->
-  <table id="week-14" class="week-table">
-    <caption>Semaine 14</caption>
-    <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
-      <th>Dimanche</th>
-    </tr>
-    <tr>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Vshred</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10 min + Exo Chiro</div>
-        <button class="video-btn" >Voir Site Vshred</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos (ménage 2 h Lausanne)</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Squats (mercredi ou vendredi)</div>
-        <div class="session"><strong>Soir :</strong> Tapis 10-15 min + Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/2flE8uYLsq4">Voir challenge</button>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Exo Chiro</div>
-        <div class="session"><strong>Soir :</strong> Piscine 30-45 min</div>
-      </td>
-      <td class="renfo">
-        <div class="session"><strong>Matin :</strong> Back training</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-        <button class="video-btn" data-src="https://www.youtube.com/embed/9vb6C-N0fsA">Voir challenge</button>
-      </td>
-      <td class="repos">
-        <div class="session"><strong>Matin :</strong> Repos ou tapis 15-20 min léger</div>
-        <div class="session"><strong>Soir :</strong></div>
-      </td>
-      <td class="cardio">
-        <div class="session"><strong>Matin :</strong> Rando 1 h après manger</div>
-        <div class="session"><strong>Soir :</strong> Exo Chiro</div>
-      </td>
-    </tr>
-  </table>
-
+      <section class="section-card">
+        <div class="section-title">
+          <div>
+            <h2>Mini calendrier de référence</h2>
+            <p>Vue croisée des semaines 14 à 19 pour Mariana et Philippe.</p>
+          </div>
+        </div>
+        <div id="reference-calendar"></div>
+      </section>
     </div>
+  </main>
 
-  <!-- modal unique pour les vidéos -->
-  <div id="videoModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+  <div id="videoModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-label="Lecteur vidéo YouTube">
+      <span class="close" aria-label="Fermer">&times;</span>
       <iframe id="videoFrame" width="100%" height="600" src="" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 
   <script>
-    const weekTables = Array.from(document.querySelectorAll('.week-table'));
-    const weekOriginalMarkup = new Map();
+    const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    const weekOrder = [14, 15, 16, 17, 18, 19];
+    const currentUniverseLabel = document.getElementById('current-universe-label');
+    const currentWeekLabel = document.getElementById('current-week-label');
+    const weekNav = document.getElementById('week-nav');
+    const activeWeekPanel = document.getElementById('active-week-panel');
+    const referenceCalendar = document.getElementById('reference-calendar');
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    const closeBtn = document.querySelector('.close');
 
-    function getWeekNumberFromTable(table) {
-      const match = table.id.match(/week-(\d+)/);
-      return match ? Number(match[1]) : null;
-    }
+    const weekDates = {
+      14: '1 juin 2026 - 7 juin 2026',
+      15: '8 juin 2026 - 14 juin 2026',
+      16: '15 juin 2026 - 21 juin 2026',
+      17: '22 juin 2026 - 28 juin 2026',
+      18: '29 juin 2026 - 5 juillet 2026',
+      19: '6 juillet 2026 - 12 juillet 2026'
+    };
 
-    function getWeekCaption(table) {
-      return table.querySelector('caption')?.textContent.trim() || 'Semaine';
-    }
-
-    function buildPhilippeSetupMarkup(weekLabel) {
-      return `
-        <caption>${weekLabel}</caption>
-        <tr>
-          <td colspan="7">
-            <div class="setup-block">
-              <div>
-                <h2>Mise en place du plan de sport</h2>
-                <p>Cette semaine sert de cadre pour préparer la structure, le rythme et la progression du plan Philippe.</p>
-                <div class="setup-meta">
-                  <span class="setup-pill">structure</span>
-                  <span class="setup-pill">cadence</span>
-                  <span class="setup-pill">discipline</span>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-      `;
-    }
-
-    function buildPhilippeWeek10Markup() {
-      return `
-        <caption>Semaine 10</caption>
-        <tr>
-          <th>Lundi</th>
-          <th>Mardi</th>
-          <th>Mercredi</th>
-          <th>Jeudi</th>
-          <th>Vendredi</th>
-          <th>Samedi</th>
-          <th>Dimanche</th>
-        </tr>
-        <tr>
-          <td class="renfo">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-            <button class="video-btn" data-src="https://www.youtube.com/embed/g6DY1gLJqyA">Voir vidéo</button>
-          </td>
-          <td class="repos">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-          </td>
-          <td class="renfo">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-            <button class="video-btn" data-src="https://www.youtube.com/embed/rGdVXp0LsCk">Voir vidéo</button>
-          </td>
-          <td class="cardio">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-          </td>
-          <td class="renfo">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-          </td>
-          <td class="repos">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-          </td>
-          <td class="cardio">
-            <div class="session"><strong>Matin :</strong></div>
-            <div class="session"><strong>Soir :</strong></div>
-          </td>
-        </tr>
-      `;
-    }
-
-    function buildPhilippeWeekFromWeek9(weekLabel) {
-      const weekNineMarkup = weekOriginalMarkup.get(9);
-      if (!weekNineMarkup) {
-        return buildPhilippeSetupMarkup(weekLabel);
-      }
-
-      const template = document.createElement('template');
-      template.innerHTML = weekNineMarkup.trim();
-      const caption = template.content.querySelector('caption');
-      if (caption) {
-        caption.textContent = weekLabel;
-      }
-
-      return template.innerHTML;
-    }
-
-    function renderUniverseMarkup(universeName) {
-      weekTables.forEach(table => {
-        const weekNumber = getWeekNumberFromTable(table);
-        if (!weekNumber) {
-          return;
-        }
-
-        if (universeName === 'mariana') {
-          const originalMarkup = weekOriginalMarkup.get(weekNumber);
-          if (originalMarkup) {
-            table.innerHTML = originalMarkup;
-          }
-          return;
-        }
-
-        // Pour Philippe : si semaine 14, réutiliser la semaine 13 si disponible
-        if (universeName === 'philippe') {
-          if (weekNumber === 14) {
-            const copyFrom13 = weekOriginalMarkup.get(13);
-            table.innerHTML = copyFrom13 || buildPhilippeSetupMarkup(getWeekCaption(table));
-            return;
-          }
-          table.innerHTML = buildPhilippeSetupMarkup(getWeekCaption(table));
-        }
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      weekTables.forEach(table => {
-        const weekNumber = getWeekNumberFromTable(table);
-        if (weekNumber) {
-          weekOriginalMarkup.set(weekNumber, table.innerHTML);
-        }
-      });
-
-      const modal = document.getElementById("videoModal");
-      const videoFrame = document.getElementById("videoFrame");
-      const closeBtn = document.querySelector(".close");
-
-      document.addEventListener('click', function(event) {
-        const button = event.target.closest('.video-btn');
-        if (!button || !modal || !videoFrame) {
-          return;
-        }
-
-        const videoSrc = button.getAttribute('data-src');
-        if (videoSrc) {
-          videoFrame.src = videoSrc;
-          modal.style.display = 'block';
-        }
-      });
-
-      if (closeBtn) {
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-            videoFrame.src = ""; // Arrêter la vidéo
-        }
-      }
-
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-          videoFrame.src = "";
-        }
-      }
-
-      renderUniverseMarkup('mariana');
+    const marianaActiveWeek = () => dayNames.map((dayName, index) => {
+      if (index === 0) return { dayName, lines: ['Séance : VShred'], video: { label: 'Voir VShred', src: 'https://www.youtube.com/embed/CUIRR2wBe6U' } };
+      if (index === 2) return { dayName, lines: ['Séance : Squat'], video: { label: 'Voir Squat', src: 'https://www.youtube.com/embed/dnd1-g-wuXg' } };
+      if (index === 4) return { dayName, lines: ['Séance : VShred'], video: { label: 'Voir VShred', src: 'https://www.youtube.com/embed/CUIRR2wBe6U' } };
+      return { dayName, lines: ['Repos / aucun entraînement structuré'] };
     });
 
-    const universeMap = {
-      mariana: { defaultMonth: 3, defaultWeek: 10 },
-      philippe: { defaultMonth: 1, defaultWeek: 1 }
+    const marianaVacationWeek = () => dayNames.map(dayName => ({ dayName, lines: ['Vacances'] }));
+    const marianaReferenceWeek = () => dayNames.map(dayName => ({ dayName, lines: ['Repère temporel'] }));
+    const siteWeekDays = () => dayNames.map((dayName, index) => ({
+      dayName,
+      lines: ['Matin : Réflexion + mise à jour du site', 'Après-midi : Avancement du site'],
+      video: index === 0 ? { label: 'Voir mise à jour du site', src: 'https://www.youtube.com/embed/g6DY1gLJqyA' } : undefined
+    }));
+    const challengeWeekDays = () => [
+      { dayName: 'Lundi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Challenge 1'], video: { label: 'Voir Challenge 1', src: 'https://www.youtube.com/embed/9vb6C-N0fsA' } },
+      { dayName: 'Mardi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Repos'] },
+      { dayName: 'Mercredi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Challenge 2'], video: { label: 'Voir Challenge 2', src: 'https://www.youtube.com/embed/2flE8uYLsq4' } },
+      { dayName: 'Jeudi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Repos'] },
+      { dayName: 'Vendredi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Challenge 3'], video: { label: 'Voir Challenge 3', src: 'https://www.youtube.com/embed/rGdVXp0LsCk' } },
+      { dayName: 'Samedi', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Repos'] },
+      { dayName: 'Dimanche', lines: ['Matin : Challenge pompes 2x', 'Après-midi : Repos'] }
+    ];
+
+    const weekData = {
+      mariana: {
+        14: { typeLabel: 'Référence', statusLabel: 'Repère temporel', summaryBadge: 'Référence temporelle', note: 'Semaine de base du calendrier, utilisée comme repère temporel pour la suite.', days: marianaReferenceWeek() },
+        15: { typeLabel: 'Vacances', statusLabel: 'Vacances', summaryBadge: 'Vacances', note: 'Aucun entraînement structuré pendant cette semaine.', days: marianaVacationWeek() },
+        16: { typeLabel: 'Active', statusLabel: 'Active', summaryBadge: 'Plan VShred + Squat', note: 'Lundi VShred, mercredi Squat, vendredi VShred.', days: marianaActiveWeek() },
+        17: { typeLabel: 'Active', statusLabel: 'Active', summaryBadge: 'Copie de la semaine 16', note: 'Même structure que la semaine 16.', days: marianaActiveWeek() },
+        18: { typeLabel: 'Active', statusLabel: 'Active', summaryBadge: 'Copie de la semaine 16', note: 'Même structure que la semaine 16.', days: marianaActiveWeek() },
+        19: { typeLabel: 'Active', statusLabel: 'Active', summaryBadge: 'Copie de la semaine 16', note: 'Même structure que la semaine 16, dernière semaine active de l’univers Mariana.', days: marianaActiveWeek() }
+      },
+      philippe: {
+        14: { typeLabel: 'Référence', statusLabel: 'Repère temporel', summaryBadge: 'Référence temporelle', note: 'Semaine de base commune pour situer la suite du calendrier.', days: marianaReferenceWeek() },
+        15: { typeLabel: 'Site', statusLabel: 'Active', summaryBadge: 'Réflexion + mise à jour du site', note: 'Semaines 15 à 18 orientées vers la réflexion, la mise à jour et la préparation du site.', days: siteWeekDays() },
+        16: { typeLabel: 'Site', statusLabel: 'Active', summaryBadge: 'Réflexion + mise à jour du site', note: 'Semaines 15 à 18 orientées vers la réflexion, la mise à jour et la préparation du site.', days: siteWeekDays() },
+        17: { typeLabel: 'Site', statusLabel: 'Active', summaryBadge: 'Réflexion + mise à jour du site', note: 'Semaines 15 à 18 orientées vers la réflexion, la mise à jour et la préparation du site.', days: siteWeekDays() },
+        18: { typeLabel: 'Site', statusLabel: 'Active', summaryBadge: 'Réflexion + mise à jour du site', note: 'Semaines 15 à 18 orientées vers la réflexion, la mise à jour et la préparation du site.', days: siteWeekDays() },
+        19: { typeLabel: 'Challenge', statusLabel: 'Active', summaryBadge: 'Transition vers les challenges', note: 'Tous les matins : Challenge pompes 2x. Le nouveau site devient opérationnel le 13 juillet 2026.', days: challengeWeekDays() }
+      }
     };
 
-    const monthWeekMap = {
-      1: { navId: 'month-1-weeks', defaultWeek: 1 },
-      2: { navId: 'month-2-weeks', defaultWeek: 5 },
-      3: { navId: 'month-3-weeks', defaultWeek: 11 }
+    const universeConfig = {
+      mariana: { label: 'Mariana', defaultWeek: 19, referenceLabel: 'Calendrier Mariana' },
+      philippe: { label: 'Philippe', defaultWeek: 19, referenceLabel: 'Calendrier Philippe' }
     };
 
-    window.showUniverse = function(universeName) {
-      const universe = universeMap[universeName];
-      if (!universe) {
+    let currentUniverse = 'mariana';
+    let currentWeek = 19;
+
+    function formatWeekBadge(universeName, weekNumber) {
+      if (universeName === 'mariana') {
+        if (weekNumber === 14) return { className: 'reference', text: 'Référence' };
+        if (weekNumber === 15) return { className: 'vacation', text: 'Vacances' };
+        return { className: 'active', text: 'Active' };
+      }
+
+      if (weekNumber === 19) return { className: 'challenge', text: 'Challenge' };
+      return { className: 'site', text: 'Site' };
+    }
+
+    function buildDayCard(day) {
+      return `
+        <article class="day-card">
+          <h3>${day.dayName}</h3>
+          <div class="detail-stack">
+            ${day.lines.map(line => `<span class="day-line">${line}</span>`).join('')}
+          </div>
+          ${day.video ? `<button type="button" class="video-btn" data-src="${day.video.src}">${day.video.label}</button>` : ''}
+        </article>
+      `;
+    }
+
+    function buildWeekPanel(universeName, weekNumber) {
+      const config = universeConfig[universeName];
+      const week = weekData[universeName][weekNumber];
+      const badge = formatWeekBadge(universeName, weekNumber);
+
+      return `
+        <div class="week-header">
+          <div>
+            <p class="week-kicker">${config.referenceLabel}</p>
+            <h3 class="week-title">Semaine ${weekNumber}</h3>
+            <p class="mini-note">${weekDates[weekNumber]}</p>
+          </div>
+          <div class="week-summary">
+            <span class="badge ${badge.className}">${badge.text}</span>
+            <span class="badge reference">${week.typeLabel}</span>
+          </div>
+        </div>
+        <div class="week-note">${week.statusLabel} - ${week.summaryBadge}. ${week.note}</div>
+        <div class="day-grid">
+          ${week.days.map(buildDayCard).join('')}
+        </div>
+      `;
+    }
+
+    function renderWeekNav() {
+      weekNav.innerHTML = weekOrder.map(weekNumber => {
+        const weekBadge = formatWeekBadge(currentUniverse, weekNumber);
+        const activeClass = weekNumber === currentWeek ? 'active' : '';
+        return `<button type="button" class="week-btn ${activeClass}" data-week="${weekNumber}">Semaine ${weekNumber} · ${weekBadge.text}</button>`;
+      }).join('');
+    }
+
+    function renderActiveWeek() {
+      currentUniverseLabel.textContent = universeConfig[currentUniverse].label;
+      currentWeekLabel.textContent = `Semaine ${currentWeek}`;
+      activeWeekPanel.innerHTML = buildWeekPanel(currentUniverse, currentWeek);
+
+      weekNav.querySelectorAll('.week-btn').forEach(button => {
+        button.classList.toggle('active', Number(button.dataset.week) === currentWeek);
+      });
+    }
+
+    function renderReferenceCalendar() {
+      referenceCalendar.innerHTML = `
+        <table class="reference-table" aria-label="Mini calendrier de référence">
+          <thead>
+            <tr>
+              <th>Semaine</th>
+              <th>Dates</th>
+              <th>Mariana</th>
+              <th>Philippe</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${weekOrder.map(weekNumber => {
+              const marianaWeek = weekData.mariana[weekNumber];
+              const philippeWeek = weekData.philippe[weekNumber];
+              const marianaBadge = formatWeekBadge('mariana', weekNumber);
+              const philippeBadge = formatWeekBadge('philippe', weekNumber);
+              const rowClass = weekNumber === 14 ? 'reference-row' : weekNumber === 19 ? 'challenge-row' : 'site-row';
+
+              return `
+                <tr class="${rowClass}">
+                  <td>
+                    <strong>Semaine ${weekNumber}</strong><br>
+                    <span class="mini-note">${weekNumber === 19 ? 'Dernière semaine active' : weekNumber === 15 ? 'Vacances côté Mariana' : 'Semaine de travail'}</span>
+                  </td>
+                  <td>${weekDates[weekNumber]}</td>
+                  <td>
+                    <div class="type-pill ${marianaBadge.className}">${marianaWeek.typeLabel}</div>
+                    <div>${marianaWeek.statusLabel}</div>
+                    <div class="mini-note">${marianaWeek.summaryBadge}</div>
+                  </td>
+                  <td>
+                    <div class="type-pill ${philippeBadge.className}">${philippeWeek.typeLabel}</div>
+                    <div>${philippeWeek.statusLabel}</div>
+                    <div class="mini-note">${philippeWeek.summaryBadge}</div>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function setUniverse(universeName) {
+      currentUniverse = universeName;
+      currentWeek = universeConfig[universeName].defaultWeek;
+      document.body.setAttribute('data-universe', universeName);
+
+      document.querySelectorAll('.universe-switcher button').forEach(button => {
+        const isActive = button.dataset.universe === universeName;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+
+      renderWeekNav();
+      renderActiveWeek();
+      renderReferenceCalendar();
+    }
+
+    document.addEventListener('click', event => {
+      const videoButton = event.target.closest('.video-btn');
+      if (videoButton && videoModal && videoFrame) {
+        const videoSrc = videoButton.getAttribute('data-src');
+        if (videoSrc) {
+          videoFrame.src = videoSrc;
+          videoModal.style.display = 'block';
+          videoModal.setAttribute('aria-hidden', 'false');
+        }
         return;
       }
 
-      document.body.setAttribute('data-universe', universeName);
-      renderUniverseMarkup(universeName);
-
-      document.querySelectorAll('.universe-switcher button').forEach(button => {
-        button.classList.toggle('active', button.dataset.universe === universeName);
-      });
-
-      showMonth(universe.defaultMonth);
-      showWeek(universe.defaultWeek);
-    };
-
-    window.showMonth = function(monthNumber) {
-      document.querySelectorAll('.week-nav').forEach(nav => {
-        nav.classList.remove('active');
-      });
-
-      document.querySelectorAll('.month-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      const monthButton = document.querySelectorAll('.month-btn')[monthNumber - 1];
-      if (monthButton) {
-        monthButton.classList.add('active');
+      const weekButton = event.target.closest('.week-btn');
+      if (weekButton) {
+        currentWeek = Number(weekButton.dataset.week);
+        renderActiveWeek();
+        return;
       }
 
-      const selectedMonth = monthWeekMap[monthNumber];
-      if (selectedMonth) {
-        const monthNav = document.getElementById(selectedMonth.navId);
-        if (monthNav) {
-          monthNav.classList.add('active');
-        }
-        showWeek(selectedMonth.defaultWeek);
+      const universeButton = event.target.closest('.universe-switcher button');
+      if (universeButton) {
+        setUniverse(universeButton.dataset.universe);
       }
+    });
+
+    if (closeBtn && videoModal && videoFrame) {
+      closeBtn.addEventListener('click', () => {
+        videoModal.style.display = 'none';
+        videoModal.setAttribute('aria-hidden', 'true');
+        videoFrame.src = '';
+      });
     }
 
-    // Fonction globale pour afficher la semaine sélectionnée
-    window.showWeek = function(weekNumber) {
-      // Masquer toutes les tables
-      document.querySelectorAll('.week-table').forEach(table => {
-        table.classList.remove('active');
-      });
-
-      // Désactiver tous les boutons
-      document.querySelectorAll('.week-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      // Afficher la table demandée
-      const selectedTable = document.getElementById('week-' + weekNumber);
-      if (selectedTable) {
-        selectedTable.classList.add('active');
+    window.addEventListener('click', event => {
+      if (event.target === videoModal && videoFrame) {
+        videoModal.style.display = 'none';
+        videoModal.setAttribute('aria-hidden', 'true');
+        videoFrame.src = '';
       }
+    });
 
-      // Activer le bouton correspondant
-      const buttons = document.querySelectorAll('.week-btn');
-      if (buttons[weekNumber - 1]) {
-        buttons[weekNumber - 1].classList.add('active');
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      showUniverse('mariana');
+    document.addEventListener('DOMContentLoaded', () => {
+      setUniverse('mariana');
     });
   </script>
 </body>
